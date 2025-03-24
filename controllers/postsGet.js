@@ -4,12 +4,12 @@ function postsGet(req, res) {
   const time = date();
 
   res.json({
-    message: `Success`,
+    message: `Posts`,
     time: {
       day: time.day,
       date: time.date,
     },
-    auth: false,
+    auth: req.authorization,
     user: req.user,
   });
 }

@@ -8,7 +8,7 @@ function signupGet(req, res) {
       day: time.day,
       date: time.date,
     },
-    auth: false,
+    auth: req.authorization,
   });
 }
 
