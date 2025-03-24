@@ -12,3 +12,33 @@ datasource db {
   provider = "postgresql"
   url      = env("LOCAL_DATABASE_URL")
 }
+
+model Users {
+  id       String     @id @default(uuid())
+  username String     @unique
+  salt     String
+  hash     String
+  posts    Posts[]
+  comments Comments[]
+}
+
+model Posts {
+  id        String     @id @default(uuid())
+  title     String
+  article   String
+  image     String
+  createdAt DateTime   @default(now())
+  author    Users      @relation(fields: [authorId], references: [id])
+  authorId  String
+  comments  Comments[]
+}
+
+model Comments {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  comment   String
+  Users     Users    @relation(fields: [usersId], references: [id])
+  usersId   String
+  posts     Posts    @relation(fields: [postsId], references: [id])
+  postsId   String
+}

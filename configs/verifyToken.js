@@ -8,6 +8,7 @@ function verifyToken(req, res, next) {
     if (err) {
       res.status(401).json({ message: `Unauthorized` });
     } else {
+      console.log(authData);
       req.user = authData.user;
       next();
     }

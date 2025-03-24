@@ -1,5 +1,4 @@
 const express = require(`express`);
-const { urlencoded } = require("express");
 const path = require(`path`);
 const assetPath = path.join(__dirname, "public");
 const app = express();
