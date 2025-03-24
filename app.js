@@ -6,6 +6,7 @@ const router = require(`./routes/router`);
 require(`dotenv`).config();
 
 app.use(express.static(assetPath));
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(router);
 

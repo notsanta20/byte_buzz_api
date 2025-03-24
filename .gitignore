@@ -24,3 +24,4 @@ dist-ssr
 *.sw?
 *.pem
 db/uploads
+controllers/test.js

@@ -1,5 +1,17 @@
+const date = require(`../configs/getDate`);
+
 function postsGet(req, res) {
-  res.json({ message: `Success`, user: req.user });
+  const time = date();
+
+  res.json({
+    message: `Success`,
+    time: {
+      day: time.day,
+      date: time.date,
+    },
+    auth: false,
+    user: req.user,
+  });
 }
 
 module.exports = postsGet;
