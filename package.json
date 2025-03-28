@@ -20,6 +20,7 @@
   "homepage": "https://github.com/notsanta20/byte_buzz_api#readme",
   "dependencies": {
     "@prisma/client": "^6.5.0",
+    "cors": "^2.8.5",
     "date-fns": "^4.1.0",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",

@@ -1,11 +1,9 @@
-const date = require(`../configs/getDate`);
 const { PrismaClient } = require(`@prisma/client`);
 const prisma = new PrismaClient();
 
 async function postsPost(req, res) {
   try {
-    const time = date();
-    if (req.authorization) {
+    if (!req.authorization) {
       res.json({ message: `Login to post` });
     } else {
       const { authorId, title, article, image } = req.body;
@@ -21,10 +19,6 @@ async function postsPost(req, res) {
 
       res.json({
         message: `Posted successfully`,
-        time: {
-          day: time.day,
-          date: time.date,
-        },
         auth: req.authorization,
         user: req.user,
       });

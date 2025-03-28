@@ -1,4 +1,3 @@
-const date = require(`../configs/getDate`);
 const { PrismaClient } = require(`@prisma/client`);
 const prisma = new PrismaClient();
 const pass = require(`../configs/passwordHash`).verifyPass;
@@ -7,7 +6,6 @@ require(`dotenv`).config();
 
 async function loginPost(req, res) {
   try {
-    const time = date();
     if (!req.authorization) {
       const { username, password } = req.body;
 
@@ -18,13 +16,14 @@ async function loginPost(req, res) {
       });
 
       if (!userVerify) {
-        res.json({ message: `Username does not exists` });
+        res.status(401).json({ message: `Username does not exists` });
+        return;
       }
-
       const passVerify = pass(password, userVerify.salt, userVerify.hash);
 
       if (!passVerify) {
-        res.json({ message: `invalid Password` });
+        res.status(401).json({ message: `invalid Password` });
+        return;
       }
 
       const tokenUser = {
@@ -43,10 +42,6 @@ async function loginPost(req, res) {
 
           res.json({
             message: `valid credentials`,
-            time: {
-              day: time.day,
-              date: time.date,
-            },
             auth: req.authorization,
             token: token,
           });
@@ -56,7 +51,11 @@ async function loginPost(req, res) {
       res.json({ message: `Already logged in` });
     }
   } catch (err) {
-    res.json({ message: `Failed to login, try again`, error: err });
+    console.log(err);
+    res.status(500).json({
+      message: `Failed to login, Internal server error, try again`,
+      error: err,
+    });
   }
 }
 

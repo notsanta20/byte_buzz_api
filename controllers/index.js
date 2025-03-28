@@ -7,6 +7,7 @@ async function index(req, res) {
   try {
     const data = await prisma.posts.findMany({
       select: {
+        id: true,
         title: true,
         image: true,
         createdAt: true,
