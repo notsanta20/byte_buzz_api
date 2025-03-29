@@ -5,22 +5,35 @@ const prisma = new PrismaClient();
 async function signupPost(req, res) {
   const { username, password } = req.body;
   const pass = getHash(password);
+
   try {
-    await prisma.users.create({
-      data: {
+    const checkUser = await prisma.users.findFirst({
+      where: {
         username: username,
-        salt: pass.salt,
-        hash: pass.hash,
       },
     });
+    if (!checkUser) {
+      await prisma.users.create({
+        data: {
+          username: username,
+          salt: pass.salt,
+          hash: pass.hash,
+        },
+      });
+    } else {
+      throw new Error(`Username already exists`);
+    }
     res.json({
       message: `Registered Successfully`,
       auth: false,
     });
   } catch (err) {
-    res.json({
+    res.status(401).json({
       message: `Failed to register, try again`,
-      error: err,
+      error:
+        err.message === `Username already exists`
+          ? `Username already exists`
+          : err,
     });
   }
 }
