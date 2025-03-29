@@ -21,10 +21,12 @@ async function commentsPost(req, res) {
         user: req.user,
       });
     } else {
-      res.json({ message: `Login to post comment` });
+      res.status(401).json({ message: `Login to post comment` });
     }
   } catch (err) {
-    res.json({ message: `Failed to post the comment, try again`, error: err });
+    res
+      .status(501)
+      .json({ message: `Failed to post the comment, try again`, error: err });
   }
 }
 
