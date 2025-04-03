@@ -10,6 +10,12 @@ async function postsGet(req, res) {
     },
     include: {
       comments: true,
+      author: true,
+      comments: {
+        include: {
+          Users: true,
+        },
+      },
     },
   });
 

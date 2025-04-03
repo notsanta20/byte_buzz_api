@@ -34,7 +34,7 @@ async function loginPost(req, res) {
       jwt.sign(
         { user: tokenUser },
         process.env.ACCESS_TOKEN_SECRET,
-        { expiresIn: `1m` },
+        { expiresIn: `10m` },
         (err, token) => {
           if (err) {
             res.status(401).json({ message: `Unauthorized entry!!` });

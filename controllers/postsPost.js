@@ -4,16 +4,15 @@ const prisma = new PrismaClient();
 async function postsPost(req, res) {
   try {
     if (!req.authorization) {
-      res.json({ message: `Login to post` });
+      res.status(401).json({ message: `Login to post` });
     } else {
-      const { authorId, title, article, image } = req.body;
+      const { title, article } = req.body;
 
       await prisma.posts.create({
         data: {
           title: title,
           article: article,
-          image: image,
-          authorId: authorId,
+          authorId: req.user.id,
         },
       });
 
@@ -24,7 +23,9 @@ async function postsPost(req, res) {
       });
     }
   } catch (err) {
-    res.json({ message: `Failed to post the article, try again`, error: err });
+    res
+      .status(501)
+      .json({ message: `Failed to post the article, try again`, error: err });
   }
 }
 

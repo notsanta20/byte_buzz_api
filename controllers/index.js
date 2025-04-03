@@ -9,8 +9,9 @@ async function index(req, res) {
       select: {
         id: true,
         title: true,
-        image: true,
+        article: true,
         createdAt: true,
+        authorId: true,
         _count: {
           select: {
             comments: true,

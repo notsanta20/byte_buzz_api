@@ -26,7 +26,6 @@ model Posts {
   id        String     @id @default(uuid())
   title     String
   article   String
-  image     String
   createdAt DateTime   @default(now())
   author    Users      @relation(fields: [authorId], references: [id])
   authorId  String
@@ -39,6 +38,6 @@ model Comments {
   comment   String
   Users     Users    @relation(fields: [usersId], references: [id])
   usersId   String
-  posts     Posts    @relation(fields: [postsId], references: [id])
+  posts     Posts    @relation(fields: [postsId], references: [id], onDelete: Cascade)
   postsId   String
 }
