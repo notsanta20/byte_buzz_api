@@ -3,7 +3,6 @@
   <p align="center">
     Byte Buzz API is the backend server for the blog app. This server is built using Nodejs and Express. This is built RESTful APIs that provides secure way to access the blog.
     <br />
-    <a href="" target="_blank">Live Demo</a>
   </p>
 </div>
 <br>
