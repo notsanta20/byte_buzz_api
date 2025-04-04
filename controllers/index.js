@@ -18,6 +18,11 @@ async function index(req, res) {
           },
         },
       },
+      orderBy: [
+        {
+          createdAt: `desc`,
+        },
+      ],
     });
     res.json({
       message: `Hello, world!`,
